@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATION ZERO // Classified Intelligence Investigation</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <canvas id="cyber-canvas"></canvas>
+    <div class="ambient-spy-bg"></div>
+    <div class="scanlines"></div>
+    <div class="vignette-overlay"></div>
+
+    <div id="app">
+
+        <header class="master-header">
+            <div class="brand-section">
+                <div class="brand-emblem">
+                    <span>0</span>
+                </div>
+                <div>
+                    <h1 class="brand-title">OPERATION ZERO</h1>
+                    <span class="brand-tag">INTELLIGENCE INVESTIGATION SYSTEM</span>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <div class="agent-status-hud">
+                    <div class="hud-item">
+                        <span class="hud-label">AGENT CLEARANCE</span>
+                        <span class="hud-val hud-rank-val">RECRUIT INVESTIGATOR</span>
+                    </div>
+                    <div class="hud-item">
+                        <span class="hud-label">TOTAL XP</span>
+                        <span class="hud-val gold"><span class="hud-xp-val">0</span> XP</span>
+                    </div>
+                </div>
+
+                <button id="btn-audio-toggle" class="btn-tactical btn-icon-sm" title="Toggle Tactical Audio Effects">
+                    <span class="icon">🔊</span> AUDIO: ON
+                </button>
+
+                <button id="btn-reset-progress" class="btn-tactical btn-danger btn-icon-sm"
+                    title="Reset Investigation Record">
+                    <span class="icon">↺</span> RESET PROGRESS
+                </button>
+            </div>
+        </header>
+
+        <main id="screen-landing" class="game-screen active">
+            <div class="hero-landing-grid">
+
+                <div class="hero-left">
+                    <div class="classified-status-pill">
+                        <span class="pulsing-dot"></span>
+                        CLASSIFIED INTELLIGENCE DIVISION
+                    </div>
+
+                    <h2 class="main-game-title">OPERATION<br>ZERO</h2>
+
+                    <h3 class="hero-subtitle">
+                        "THE TRUTH IS HIDDEN. THE MISSION IS YOURS."
+                    </h3>
+
+                    <p class="hero-desc">
+                        Step into the world of secret intelligence, decode hidden messages, investigate suspicious
+                        individuals, and uncover the truth behind rogue cyber networks.
+                    </p>
+
+                    <div class="hero-stats-row">
+                        <div class="hero-stat-box">
+                            <h4>2026.11</h4>
+                            <p>TIMELINE ERA</p>
+                        </div>
+                        <div class="hero-stat-box">
+                            <h4>LEVEL 1-2</h4>
+                            <p>DEPLOYMENT OPS</p>
+                        </div>
+                        <div class="hero-stat-box">
+                            <h4>BERLIN</h4>
+                            <p>FIELD SECTOR</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="section-label-banner">
+                        <span>SELECT ACTIVE INVESTIGATION</span>
+                    </div>
+
+                    <div class="mission-card available" id="card-lvl1">
+                        <div class="card-tactical-header">
+                            <span class="level-code">LEVEL 01</span>
+                            <span class="status-tag status-available" id="lvl1-badge">AVAILABLE</span>
+                        </div>
+
+                        <h3 class="mission-title">THE MISSING AGENT</h3>
+
+                        <div class="mission-meta-chips">
+                            <span class="meta-chip">DIFFICULTY: BEGINNER</span>
+                            <span class="meta-chip">TYPE: CYBER ESPIONAGE</span>
+                        </div>
+
+                        <p class="mission-summary">
+                            An intelligence agent has mysteriously disappeared while probing Shadow Protocol.
+                            Investigate the clues and uncover the traitor.
+                        </p>
+
+                        <button id="btn-start-lvl1" class="btn-tactical btn-primary">
+                            <span class="icon">▶</span> START MISSION
+                        </button>
+                    </div>
+
+                    <div class="mission-card locked" id="card-lvl2">
+                        <div class="card-tactical-header">
+                            <span class="level-code">LEVEL 02</span>
+                            <span class="status-tag status-locked">LOCKED / COMING SOON</span>
+                        </div>
+
+                        <h3 class="mission-title">THE STOLEN IDENTITY</h3>
+
+                        <div class="mission-meta-chips">
+                            <span class="meta-chip">DIFFICULTY: INTERMEDIATE</span>
+                            <span class="meta-chip">TYPE: DATABASE EXFILTRATION</span>
+                        </div>
+
+                        <p class="mission-summary">
+                            A mysterious identity has appeared inside the agency database. Someone is erasing the
+                            identities of intelligence officers.
+                        </p>
+
+                        <div class="locked-overlay-notice">
+                            <span class="icon">🔒</span> COMING SOON // MISSION LOCKED
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section id="screen-briefing" class="game-screen">
+            <div class="briefing-container">
+                <div class="top-return-bar">
+                    <button id="btn-back-briefing" class="btn-tactical btn-icon-sm">
+                        ← RETURN TO HQ
+                    </button>
+                </div>
+
+                <div class="classified-dossier-wrapper">
+                    <div class="dossier-top-stamp">TOP SECRET // RESTRICTED</div>
+
+                    <div class="briefing-headline-row">
+                        <span class="briefing-tag">CLASSIFIED DOSSIER // MISSION 001</span>
+                        <h2 class="briefing-main-title">THE MISSING AGENT</h2>
+                    </div>
+
+                    <div class="tactical-intel-grid">
+                        <div class="intel-node">
+                            <span class="label">PRIMARY LOCATION:</span>
+                            <span class="val">Berlin, Germany</span>
+                        </div>
+                        <div class="intel-node">
+                            <span class="label">OPERATION DATE:</span>
+                            <span class="val">24 November 2026</span>
+                        </div>
+                        <div class="intel-node">
+                            <span class="label">THREAT LEVEL:</span>
+                            <span class="val threat-low">LOW [CYBER SECURITY AUDIT]</span>
+                        </div>
+                    </div>
+
+                    <div class="typewriter-box">
+                        <div id="typewriter-text"></div>
+                        <span class="typewriter-cursor"></span>
+                    </div>
+
+                    <div class="section-label-banner" style="margin-bottom: 14px;">
+                        <span>IDENTIFIED INTERNAL SUSPECTS (FILE ACCESS GRANTED)</span>
+                    </div>
+
+                    <div class="suspects-intro-grid">
+                        <div class="suspect-preview-card">
+                            <img src="assets/avatar-daniel.svg" alt="Daniel">
+                            <div class="suspect-preview-info">
+                                <h5>Daniel</h5>
+                                <p>Junior Programmer</p>
+                            </div>
+                        </div>
+
+                        <div class="suspect-preview-card">
+                            <img src="assets/avatar-sarah.svg" alt="Sarah">
+                            <div class="suspect-preview-info">
+                                <h5>Sarah</h5>
+                                <p>Security Analyst</p>
+                            </div>
+                        </div>
+
+                        <div class="suspect-preview-card">
+                            <img src="assets/avatar-marcus.svg" alt="Marcus">
+                            <div class="suspect-preview-info">
+                                <h5>Marcus</h5>
+                                <p>Network Administrator</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="briefing-footer-actions">
+                        <button id="btn-skip-typing" class="btn-tactical btn-icon-sm" style="display:none;">
+                            FAST-FORWARD BRIEFING
+                        </button>
+                        <button id="btn-accept-mission" class="btn-tactical btn-primary">
+                            <span class="icon">⚡</span> ACCEPT MISSION & COMMENCE INVESTIGATION
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-investigation" class="game-screen">
+            <div class="investigation-dashboard">
+
+                <div class="investigation-hud-bar">
+                    <div class="hud-mission-info">
+                        <h3>OPERATION ZERO // MISSION 001</h3>
+                        <p>INVESTIGATION WORKSTATION // STATUS: ACTIVE</p>
+                    </div>
+
+                    <div class="hud-progress-block">
+                        <div class="progress-header">
+                            <span>INVESTIGATION INTEL</span>
+                            <span id="hud-progress-text">0/3 CLUES</span>
+                        </div>
+                        <div class="tactical-progress-track">
+                            <div id="hud-progress-fill" class="tactical-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="hud-actions-group" style="display: flex; gap: 12px;">
+                        <button id="btn-open-evidence-board" class="btn-tactical btn-icon-sm"
+                            style="display:none; border-color: var(--cyan-neon); color: var(--cyan-neon);">
+                            <span class="icon">🔍</span> EVIDENCE BOARD
+                        </button>
+                        <button id="btn-global-hint" class="btn-tactical btn-icon-sm"
+                            style="border-color: var(--amber-neon); color: var(--amber-neon);">
+                            <span class="icon">💡</span> INTEL HINT
+                        </button>
+                        <button id="btn-back-hq" class="btn-tactical btn-icon-sm">
+                            ← BACK TO HQ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="investigation-grid">
+
+                    <aside class="investigation-sidebar">
+
+                        <div class="tactical-panel">
+                            <div class="panel-header">
+                                <h4>MISSING AGENT FILE</h4>
+                                <span class="badge-counter"
+                                    style="border-color: var(--red-neon); color: var(--red-neon);">STATUS: M.I.A.</span>
+                            </div>
+                            <div class="agent-dossier-card">
+                                <img src="assets/avatar-alex.svg" alt="Alex Morgan">
+                                <div class="agent-dossier-text">
+                                    <h5>Alex Morgan</h5>
+                                    <p>Senior Field Agent</p>
+                                    <span>Specialty: Cyber Crime Infiltration</span>
+                                    <span>Last Seen: 72 Hours Ago</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tactical-panel">
+                            <div class="panel-header">
+                                <h4>EVIDENCE NOTEBOOK</h4>
+                                <span class="badge-counter">RECORD</span>
+                            </div>
+                            <ul id="evidence-log-list" class="evidence-log">
+                                <li class="empty-log">Awaiting recovered evidence...</li>
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <div class="clues-column">
+
+                        <article class="clue-module active" id="card-clue-1">
+                            <div class="clue-header">
+                                <div class="clue-title-wrap">
+                                    <span class="clue-index">CLUE 01</span>
+                                    <h3 class="clue-title">THE BINARY MESSAGE</h3>
+                                </div>
+                                <span class="clue-status-tag status-active">ACTIVE</span>
+                            </div>
+
+                            <p style="color: var(--text-secondary); margin-bottom: 14px;">
+                                A damaged text packet was intercepted from Agent Morgan's encrypted pocket terminal:
+                            </p>
+
+                            <div class="recovered-file-panel">
+                                <div class="file-tab">
+                                    <span class="icon">📄</span> message_01.txt (ENCRYPTED BYTES)
+                                </div>
+                                <div class="file-content-binary">
+                                    01001000 01000101 01001100 01010000
+                                </div>
+                            </div>
+
+                            <div class="clue-hint-box">
+                                <strong>Tactical Hint:</strong> "Computers represent text using binary numbers (0 and
+                                1)."
+                            </div>
+
+                            <button id="btn-toggle-binary-helper" class="helper-tool-toggle">
+                                ⚙ TOGGLE ASCII BINARY MATRIX INSPECTOR
+                            </button>
+
+                            <div id="binary-helper-box" class="interactive-helper-box hidden">
+                                <strong>ASCII Binary Reference Guide:</strong>
+                                <div class="helper-grid-ascii">
+                                    <div class="ascii-item">
+                                        <span class="char">H</span>
+                                        <code>01001000 (72)</code>
+                                    </div>
+                                    <div class="ascii-item">
+                                        <span class="char">E</span>
+                                        <code>01000101 (69)</code>
+                                    </div>
+                                    <div class="ascii-item">
+                                        <span class="char">L</span>
+                                        <code>01001100 (76)</code>
+                                    </div>
+                                    <div class="ascii-item">
+                                        <span class="char">P</span>
+                                        <code>01010000 (80)</code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tactical-input-group">
+                                <input type="text" id="input-clue-1" class="tactical-input"
+                                    placeholder="ENTER DECODED WORD (e.g. HELP)" autocomplete="off">
+                                <button id="btn-submit-clue-1" class="btn-tactical btn-primary">
+                                    SUBMIT
+                                </button>
+                            </div>
+
+                            <div id="feedback-clue-1" class="feedback-box"></div>
+                        </article>
+
+                        <article class="clue-module locked" id="card-clue-2">
+                            <div class="clue-header">
+                                <div class="clue-title-wrap">
+                                    <span class="clue-index">CLUE 02</span>
+                                    <h3 class="clue-title">THE SECRET ALPHABET</h3>
+                                </div>
+                                <span class="clue-status-tag status-locked">LOCKED</span>
+                            </div>
+
+                            <p style="color: var(--text-secondary); margin-bottom: 14px;">
+                                A scrambler device in Alex's safehouse produced this shifted message:
+                            </p>
+
+                            <div class="recovered-file-panel">
+                                <div class="file-tab">
+                                    <span class="icon">🔒</span> cipher_intercept.dat
+                                </div>
+                                <div class="file-content-cipher">
+                                    ORRN DW WKH GRRU
+                                </div>
+                            </div>
+
+                            <div class="clue-hint-box">
+                                <strong>Tactical Hint:</strong> "Every letter has moved three steps forward in the
+                                alphabet. Move it three steps backward to reveal the message."
+                                <div class="cipher-example-box">
+                                    <span>D → A</span>
+                                    <span>E → B</span>
+                                    <span>F → C</span>
+                                </div>
+                            </div>
+
+                            <button id="btn-toggle-cipher-helper" class="helper-tool-toggle">
+                                ⚙ TOGGLE CAESAR SHIFT REFERENCE TABLE
+                            </button>
+
+                            <div id="cipher-helper-box" class="interactive-helper-box hidden">
+                                <strong>Alphabet -3 Shift Wheel:</strong>
+                                <p style="font-family: var(--font-mono); margin-top: 6px; color: var(--cyan-neon);">
+                                    CIPHER: &nbsp;D E F G H I J K L M N O P Q R S T U V W X Y Z A B C<br>
+                                    ORIGIN: &nbsp;A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+                                </p>
+                            </div>
+
+                            <div class="tactical-input-group">
+                                <input type="text" id="input-clue-2" class="tactical-input"
+                                    placeholder="ENTER DECODED PHRASE" autocomplete="off" disabled>
+                                <button id="btn-submit-clue-2" class="btn-tactical btn-primary" disabled>
+                                    SUBMIT
+                                </button>
+                            </div>
+
+                            <div id="feedback-clue-2" class="feedback-box"></div>
+                        </article>
+
+                        <article class="clue-module locked" id="card-clue-3">
+                            <div class="clue-header">
+                                <div class="clue-title-wrap">
+                                    <span class="clue-index">CLUE 03</span>
+                                    <h3 class="clue-title">THE PYTHON EVIDENCE</h3>
+                                </div>
+                                <span class="clue-status-tag status-locked">LOCKED</span>
+                            </div>
+
+                            <p style="color: var(--text-secondary); margin-bottom: 14px;">
+                                Recovered Python audit script from Alex's workstation terminal:
+                            </p>
+
+                            <div class="code-editor-panel">
+                                <div class="code-editor-header">
+                                    <div class="code-editor-tabs">
+                                        <span class="editor-tab">verify_suspects.py</span>
+                                    </div>
+                                    <div class="editor-window-controls">
+                                        <span class="window-dot dot-red"></span>
+                                        <span class="window-dot dot-yellow"></span>
+                                        <span class="window-dot dot-green"></span>
+                                    </div>
+                                </div>
+
+                                <div class="code-body-wrapper">
+                                    <div class="code-line-numbers">
+                                        1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+                                    </div>
+                                    <pre
+                                        class="code-syntax"><code><span class="syn-var">suspects</span> = {
+    <span class="syn-key">"Daniel"</span>: <span class="syn-num">15</span>,
+    <span class="syn-key">"Sarah"</span>: <span class="syn-num">27</span>,
+    <span class="syn-key">"Marcus"</span>: <span class="syn-num">42</span>
+}
+
+<span class="syn-var">secret_code</span> = <span class="syn-num">42</span>
+
+<span class="syn-kw">for</span> <span class="syn-var">name</span>, <span class="syn-var">code</span> <span class="syn-kw">in</span> <span class="syn-var">suspects</span>.<span class="syn-fn">items</span>():
+    <span class="syn-kw">if</span> <span class="syn-var">code</span> == <span class="syn-var">secret_code</span>:
+        <span class="syn-fn">print</span>(<span class="syn-str">"Suspect found:"</span>, <span class="syn-var">name</span>)</code></pre>
+                                </div>
+
+                                <div class="terminal-simulator" id="python-terminal-output">
+                                    <span class="prompt">$</span> python3 verify_suspects.py
+                                    <span class="text-muted">[Click "EXECUTE SCRIPT" to inspect runtime output]</span>
+                                </div>
+                            </div>
+
+                            <button id="btn-run-python" class="btn-tactical btn-icon-sm" style="margin-bottom: 20px;"
+                                disabled>
+                                ▶ EXECUTE SCRIPT IN SECURE SANDBOX
+                            </button>
+
+                            <div class="questions-container">
+
+                                <div class="quiz-card">
+                                    <h4 class="quiz-question-title">1. What does the <code>suspects</code> dictionary
+                                        store?</h4>
+                                    <div class="quiz-options-list">
+                                        <label class="tactical-radio-label">
+                                            <input type="radio" name="q1" value="dictionary-map" class="clue3-input"
+                                                disabled>
+                                            <span>A key-value mapping of suspect names to their access codes</span>
+                                        </label>
+                                        <label class="tactical-radio-label">
+                                            <input type="radio" name="q1" value="room-numbers" class="clue3-input"
+                                                disabled>
+                                            <span>A list of office room numbers</span>
+                                        </label>
+                                        <label class="tactical-radio-label">
+                                            <input type="radio" name="q1" value="random-pass" class="clue3-input"
+                                                disabled>
+                                            <span>A random password generator string</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="quiz-card">
+                                    <h4 class="quiz-question-title">2. What is the purpose of the <code>for</code> loop?
+                                    </h4>
+                                    <div class="quiz-options-list">
+                                        <label class="tactical-radio-label">
+                                            <input type="radio" name="q2" value="loop-pairs" class="clue3-input"
+                                                disabled>
+                                            <span>To iterate through each suspect name and code pair in the
+                                                dictionary</span>
+                                        </label>
+                                        <label class="tactical-radio-label">
+                                            <input type="radio" name="q2" value="count-42" class="clue3-input" disabled>
+                                            <span>To count numbers sequentially up to 42</span>
+                                        </label>
+                                        <label class="tactical-radio-label">
+                                            <input type="radio" name="q2" value="delete-db" class="clue3-input"
+                                                disabled>
+                                            <span>To wipe the suspects database</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="quiz-card">
+                                    <h4 class="quiz-question-title">3. What will the final output be?</h4>
+                                    <div class="quiz-options-list">
+                                        <label class="tactical-radio-label">
+                                            <input type="radio" name="q3" value="marcus" class="clue3-input" disabled>
+                                            <span>Suspect found: Marcus</span>
+                                        </label>
+                                        <label class="tactical-radio-label">
+                                            <input type="radio" name="q3" value="daniel" class="clue3-input" disabled>
+                                            <span>Suspect found: Daniel</span>
+                                        </label>
+                                        <label class="tactical-radio-label">
+                                            <input type="radio" name="q3" value="sarah" class="clue3-input" disabled>
+                                            <span>Suspect found: Sarah</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="feedback-clue-3" class="feedback-box"></div>
+                        </article>
+
+                        <div id="card-board-prompt"
+                            style="display:none; text-align: center; margin-top: 24px; padding: 26px; background: rgba(14, 24, 44, 0.9); border: 2px solid var(--cyan-neon); border-radius: 8px; box-shadow: 0 0 24px var(--cyan-glow);">
+                            <span
+                                style="font-family: var(--font-heading); color: var(--green-neon); font-size: 0.8rem; letter-spacing: 2px;">✔
+                                ALL 3 INTEL PACKETS ACQUIRED</span>
+                            <h3
+                                style="font-family: var(--font-heading); color: #fff; margin: 8px 0; font-size: 1.45rem;">
+                                PROCEED TO EVIDENCE BOARD</h3>
+                            <p
+                                style="color: var(--text-secondary); max-width: 620px; margin: 0 auto 18px; font-size: 0.95rem; line-height: 1.5;">
+                                Synthesize the binary distress signal, the door cipher, and the Python suspect match on
+                                the connected investigation board.
+                            </p>
+                            <button id="btn-goto-evidence-board" class="btn-tactical btn-primary"
+                                style="padding: 12px 30px;">
+                                OPEN INVESTIGATION EVIDENCE BOARD ➔
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-evidence-board" class="game-screen">
+            <div class="evidence-board-wrapper">
+                <div class="board-header-banner">
+                    <div>
+                        <h2
+                            style="font-family: var(--font-heading); font-size: 1.4rem; letter-spacing: 3px; color: #fff;">
+                            INVESTIGATION EVIDENCE BOARD
+                        </h2>
+                        <p style="font-size: 0.8rem; color: var(--cyan-neon); letter-spacing: 1.5px;">
+                            OPERATION ZERO // CASE FILE: THE MISSING AGENT
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <button id="btn-board-back-workstation" class="btn-tactical btn-icon-sm">
+                            ← BACK TO CLUES
+                        </button>
+                        <button id="btn-start-final-investigation" class="btn-tactical btn-primary">
+                            START FINAL INVESTIGATION ➔
+                        </button>
+                    </div>
+                </div>
+
+                <div class="board-nexus-container">
+                    <p class="board-instructions-text">
+                        The three recovered clues form a single chain of events. Click any evidence card to review the
+                        decoded information and full intelligence notes.
+                    </p>
+
+                    <div class="board-cards-grid">
+
+                        <div class="nexus-evidence-card" id="nexus-card-1">
+                            <div class="nexus-pin"></div>
+                            <span class="nexus-card-tag">EVIDENCE 01 // INTERCEPT</span>
+                            <h4 class="nexus-card-title">DISTRESS SIGNAL</h4>
+                            <div class="nexus-card-val">HELP</div>
+                            <p class="nexus-card-meaning">
+                                <strong>Significance:</strong> Alex's final distress signal sent moments before
+                                disappearing. Confirms an active insider threat within the team.
+                            </p>
+                            <div class="nexus-click-hint">
+                                <span>🔍 CLICK TO INSPECT DETAILS</span>
+                            </div>
+                        </div>
+
+                        <div class="nexus-evidence-card" id="nexus-card-2">
+                            <div class="nexus-pin"></div>
+                            <span class="nexus-card-tag">EVIDENCE 02 // CIPHER</span>
+                            <h4 class="nexus-card-title">LOCATION DIRECTIVE</h4>
+                            <div class="nexus-card-val">LOOK AT THE DOOR</div>
+                            <p class="nexus-card-meaning">
+                                <strong>Significance:</strong> Decrypted Caesar Cipher indicates physical location. Alex
+                                may have hidden something behind the facility's secure door.
+                            </p>
+                            <div class="nexus-click-hint">
+                                <span>🔍 CLICK TO INSPECT DETAILS</span>
+                            </div>
+                        </div>
+
+                        <div class="nexus-evidence-card" id="nexus-card-3">
+                            <div class="nexus-pin"></div>
+                            <span class="nexus-card-tag">EVIDENCE 03 // AUDIT</span>
+                            <h4 class="nexus-card-title">CREDENTIAL MATCH</h4>
+                            <div class="nexus-card-val">MARCUS // PASSKEY 42</div>
+                            <p class="nexus-card-meaning">
+                                <strong>Significance:</strong> Python script verification reveals Code 42 is associated
+                                with Marcus's credentials. Makes Marcus a primary suspect, though not proven mastermind.
+                            </p>
+                            <div class="nexus-click-hint">
+                                <span>🔍 CLICK TO INSPECT DETAILS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="board-action-footer">
+                    <button id="btn-start-final-investigation-bottom" class="btn-tactical btn-primary"
+                        style="padding: 14px 36px; font-size: 1rem;">
+                        ⚡ START FINAL INVESTIGATION
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-final-investigation" class="game-screen">
+            <div class="evidence-board-wrapper">
+                <div class="board-header-banner">
+                    <div>
+                        <h2
+                            style="font-family: var(--font-heading); font-size: 1.4rem; letter-spacing: 3px; color: #fff;">
+                            FINAL INVESTIGATION // CASE CLOSURE
+                        </h2>
+                        <p style="font-size: 0.8rem; color: var(--red-neon); letter-spacing: 1.5px;">
+                            FORMULATE CHARGES & PINPOINT CLANDESTINE LOCATION
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <button id="btn-final-back-board" class="btn-tactical btn-icon-sm">
+                            ← BACK TO EVIDENCE BOARD
+                        </button>
+                    </div>
+                </div>
+
+                <div class="final-investigation-section unlocked" style="box-shadow: none;">
+                    <div class="final-section-header">
+                        <span class="final-badge-pill">CASE CLOSURE DOSSIER</span>
+                        <h3 class="final-title">SUBMIT FORMAL CHARGES</h3>
+                        <p class="final-subtitle">Synthesize the 3 interconnected clues to complete your investigative
+                            report.</p>
+                    </div>
+
+                    <div class="final-questions-grid" style="grid-template-columns: repeat(2, 1fr); gap: 20px;">
+
+                        <div class="final-query-card">
+                            <h5>1. WHO IS YOUR PRIMARY SUSPECT?</h5>
+                            <div class="suspect-select-row">
+                                <label class="suspect-radio-option">
+                                    <input type="radio" name="final-suspect" value="Daniel">
+                                    <img src="assets/avatar-daniel.svg" alt="Daniel">
+                                    <div class="suspect-name-wrap">
+                                        <strong>Daniel</strong>
+                                        <span>Junior Programmer (Code: 15)</span>
+                                    </div>
+                                </label>
+                                <label class="suspect-radio-option">
+                                    <input type="radio" name="final-suspect" value="Sarah">
+                                    <img src="assets/avatar-sarah.svg" alt="Sarah">
+                                    <div class="suspect-name-wrap">
+                                        <strong>Sarah</strong>
+                                        <span>Security Analyst (Code: 27)</span>
+                                    </div>
+                                </label>
+                                <label class="suspect-radio-option">
+                                    <input type="radio" name="final-suspect" value="Marcus">
+                                    <img src="assets/avatar-marcus.svg" alt="Marcus">
+                                    <div class="suspect-name-wrap">
+                                        <strong>Marcus</strong>
+                                        <span>Network Administrator (Code: 42)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="final-query-card">
+                            <h5>2. WHERE SHOULD YOU INVESTIGATE?</h5>
+                            <div class="suspect-select-row">
+                                <label class="suspect-radio-option">
+                                    <input type="radio" name="final-location" value="Office">
+                                    <div class="suspect-name-wrap">
+                                        <strong>The Office</strong>
+                                        <span>Confidential executive desk station</span>
+                                    </div>
+                                </label>
+                                <label class="suspect-radio-option">
+                                    <input type="radio" name="final-location" value="Server Room">
+                                    <div class="suspect-name-wrap">
+                                        <strong>The Server Room</strong>
+                                        <span>Central infrastructure racks</span>
+                                    </div>
+                                </label>
+                                <label class="suspect-radio-option">
+                                    <input type="radio" name="final-location" value="The Door">
+                                    <div class="suspect-name-wrap">
+                                        <strong>The Door</strong>
+                                        <span>Secure perimeter access entryway</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="final-query-card">
+                            <h5>3. WHAT IS THE SECRET ACCESS CODE?</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">
+                                Enter the passkey identified in the Python audit script:
+                            </p>
+                            <input type="text" id="final-access-code" class="tactical-input" placeholder="e.g. 42"
+                                autocomplete="off">
+                        </div>
+
+                        <div class="final-query-card">
+                            <h5>4. WHY DO YOU SUSPECT THIS PERSON?</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">
+                                Explain your reasoning based on Marcus and the recovered access credentials:
+                            </p>
+                            <textarea id="final-reasoning-text" class="tactical-textarea"
+                                placeholder="e.g. The Python script checked the suspects dictionary and verified that Marcus's credentials match secret passkey 42..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="final-action-footer" style="margin-top: 24px;">
+                        <button id="btn-submit-final" class="btn-tactical btn-primary"
+                            style="padding: 14px 34px; font-size: 1rem;">
+                            🔒 SUBMIT FINAL CHARGES & EXECUTE APPREHENSION
+                        </button>
+                        <div id="final-feedback" class="feedback-box"></div>
+
+                        <div id="banner-report-accepted" class="final-report-accepted-banner">
+                            ✔ INVESTIGATION REPORT ACCEPTED // PROCEEDING TO SECURE SECTOR...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-secret-room" class="game-screen">
+            <div class="secret-room-container">
+                <div class="vault-door-stage">
+                    <div style="text-align: center; margin-bottom: 24px;">
+                        <span class="classified-status-pill">RESTRICTED SECTOR 001</span>
+                        <h2 style="font-family: var(--font-heading); font-size: 2rem; color: #fff; margin-top: 8px;">
+                            THE SECURE DOOR
+                        </h2>
+                    </div>
+
+                    <div class="keypad-access-block">
+                        <div id="secret-keypad-screen" class="keypad-display-screen">
+                            - -
+                        </div>
+                        <div class="door-bolt-mechanism">
+                            <div id="secret-bolt-bar" class="bolt-slide-bar"></div>
+                        </div>
+                    </div>
+
+                    <div id="secret-blast-doors" class="blast-doors-viewport">
+                        <div class="blast-door-panel left-panel">
+                            <span
+                                style="font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 2px; color: var(--text-muted);">DOOR
+                                LEFT</span>
+                        </div>
+                        <div class="blast-door-interior">
+                            <span>[ ACCESS GRANTED // CHAMBER UNSEALED ]</span>
+                        </div>
+                        <div class="blast-door-panel right-panel">
+                            <span
+                                style="font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 2px; color: var(--text-muted);">DOOR
+                                RIGHT</span>
+                        </div>
+                    </div>
+
+                    <div id="secret-chamber-content"
+                        style="display:none; animation: fadeInSlideUp 0.8s ease-out forwards;">
+                        <div class="audio-recorder-station">
+                            <div class="audio-recorder-top">
+                                <div class="audio-recorder-title">
+                                    <span class="icon">📼</span> RECOVERED AUDIO RECORDING // AGENT ALEX MORGAN
+                                </div>
+                                <div class="waveform-display-bar" id="audio-visualizer-bars">
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                </div>
+                            </div>
+
+                            <div class="recording-transcript-box">
+                                <div id="audio-typewriter-text"></div>
+                                <span class="typewriter-cursor"></span>
+                            </div>
+
+                            <button id="btn-replay-audio" class="btn-tactical btn-icon-sm">
+                                ↺ REPLAY RECORDING
+                            </button>
+                        </div>
+
+                        <div class="threat-detected-banner">
+                            <div class="threat-icon-large">⚠</div>
+                            <div class="threat-content">
+                                <h4>NEW THREAT DETECTED</h4>
+                                <p>
+                                    Marcus was a primary suspect with matching credentials, but Alex's recording
+                                    confirms he was not acting alone. Someone much higher inside the agency is pulling
+                                    the strings of Shadow Protocol.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 24px;">
+                            <button id="btn-open-debrief-report" class="btn-tactical btn-primary"
+                                style="padding: 14px 34px; font-size: 1rem;">
+                                VIEW MISSION DEBRIEFING REPORT ➔
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="modal-evidence-collected" class="modal-overlay">
+        <div class="tactical-modal-card" style="max-width: 580px; text-align: center;">
+            <div class="interstitial-badge-icon">✔</div>
+            <h3
+                style="font-family: var(--font-heading); color: #fff; font-size: 1.6rem; letter-spacing: 2px; margin-bottom: 6px;">
+                ALL EVIDENCE COLLECTED
+            </h3>
+            <p
+                style="color: var(--cyan-neon); font-family: var(--font-heading); font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 18px;">
+                MISSION PROGRESS: 3/3 CLUES COMPLETED
+            </p>
+            <div class="interstitial-evidence-list">
+                <div class="interstitial-item">
+                    <span class="label">Binary Message:</span>
+                    <span class="val">HELP</span>
+                </div>
+                <div class="interstitial-item">
+                    <span class="label">Secret Alphabet:</span>
+                    <span class="val">LOOK AT THE DOOR</span>
+                </div>
+                <div class="interstitial-item">
+                    <span class="label">Python Evidence:</span>
+                    <span class="val">Marcus — Access Code 42</span>
+                </div>
+            </div>
+            <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.5;">
+                Three critical intelligence fragments have been decrypted. Assemble their connections on the
+                investigation evidence board to formulate your final report.
+            </p>
+            <button id="btn-continue-to-board" class="btn-tactical btn-primary" style="padding: 12px 32px;">
+                CONTINUE INVESTIGATION ➔
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-evidence-detail" class="modal-overlay">
+        <div class="tactical-modal-card" style="max-width: 600px;">
+            <button id="btn-close-evidence-detail" class="modal-close-btn">&times;</button>
+            <span id="evidence-detail-tag" class="classified-status-pill" style="margin-bottom: 12px;">EVIDENCE
+                FILE</span>
+            <h3 id="evidence-detail-title"
+                style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 16px;">
+                EVIDENCE TITLE
+            </h3>
+            <div id="evidence-detail-content"
+                style="color: #d1d9e6; font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">
+
+            </div>
+            <button id="btn-close-evidence-detail-btn" class="btn-tactical"
+                style="width: 100%; justify-content: center;">
+                RETURN TO EVIDENCE BOARD
+            </button>
+        </div>
+    </div>
+
+    <div id="debriefing-modal" class="modal-overlay">
+        <div class="tactical-modal-card" style="max-width: 720px;">
+            <button id="btn-close-debrief" class="modal-close-btn">&times;</button>
+            <div class="debriefing-content">
+                <span class="mission-cleared-banner">✔ MISSION 001 — COMPLETED</span>
+                <h2 class="debrief-title" style="margin-bottom: 16px;">THE MISSING AGENT</h2>
+
+                <div class="debrief-badge-container" style="width: 140px; height: 140px; margin-bottom: 18px;">
+                    <img src="assets/badge-rookie-detective.svg" alt="Rookie Detective Badge">
+                </div>
+                <div
+                    style="font-family: var(--font-heading); color: var(--amber-neon); font-size: 0.95rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 20px;">
+                    ACHIEVEMENT UNLOCKED: ROOKIE DETECTIVE
+                </div>
+
+                <div class="stats-grid-debrief" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 20px;">
+                    <div class="stat-debrief-item">
+                        <span class="lbl">CLUES SOLVED</span>
+                        <span class="val">3 / 3</span>
+                    </div>
+                    <div class="stat-debrief-item">
+                        <span class="lbl">INVESTIGATION STATUS</span>
+                        <span class="val" style="color: var(--green-neon);">SUCCESSFUL</span>
+                    </div>
+                    <div class="stat-debrief-item">
+                        <span class="lbl">PRIMARY SUSPECT</span>
+                        <span class="val" style="color: var(--cyan-neon);">MARCUS</span>
+                    </div>
+                    <div class="stat-debrief-item">
+                        <span class="lbl">SECRET ROOM DISCOVERED</span>
+                        <span class="val" style="color: var(--green-neon);">YES</span>
+                    </div>
+                    <div class="stat-debrief-item">
+                        <span class="lbl">XP EARNED</span>
+                        <span class="val gold">+500 XP</span>
+                    </div>
+                    <div class="stat-debrief-item">
+                        <span class="lbl">TOTAL OPERATIVE XP</span>
+                        <span class="val gold" id="stat-xp">950 XP</span>
+                    </div>
+                </div>
+
+                <div class="debrief-narrative">
+                    <strong>CASE SUMMARY:</strong><br>
+                    You have successfully decrypted Alex Morgan's distress beacon, tracked down the secret intelligence
+                    chamber behind the facility door, and exposed Marcus's access credentials. However, Alex's recovered
+                    recording reveals a far darker truth: Marcus was merely a pawn, and an elite mole operates higher
+                    within agency leadership.
+                </div>
+
+                <div style="display: flex; gap: 16px; justify-content: center;">
+                    <button id="btn-return-operations" class="btn-tactical btn-primary"
+                        style="padding: 14px 34px; font-size: 1rem;">
+                        RETURN TO OPERATIONS
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reset-modal" class="modal-overlay">
+        <div class="tactical-modal-card" style="max-width: 480px; text-align: center;">
+            <h3
+                style="font-family: var(--font-heading); color: var(--red-neon); font-size: 1.4rem; margin-bottom: 12px;">
+                CONFIRM INTEL PURGE
+            </h3>
+            <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 0.95rem;">
+                Are you sure you want to purge all mission logs, clues progress, and earned XP? This action is
+                irreversible.
+            </p>
+            <div style="display: flex; gap: 14px; justify-content: center;">
+                <button id="btn-confirm-reset" class="btn-tactical btn-danger">
+                    PURGE ALL DATA
+                </button>
+                <button id="btn-cancel-reset" class="btn-tactical">
+                    CANCEL
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="hint-modal" class="modal-overlay">
+        <div class="tactical-modal-card" style="max-width: 520px;">
+            <button id="btn-close-hint" class="modal-close-btn">&times;</button>
+            <h3
+                style="font-family: var(--font-heading); color: var(--amber-neon); font-size: 1.25rem; margin-bottom: 16px;">
+                INTELLIGENCE HINT DISPATCH
+            </h3>
+            <div id="hint-modal-content" style="color: #ffe6a0; line-height: 1.6; font-size: 0.95rem;">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="global-notification" class="notification-toast"></div>
+
+    <script src="js/audio.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/game.js"></script>
+</body>
+
+</html>
